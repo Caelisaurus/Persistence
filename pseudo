@@ -1,0 +1,23 @@
+int curx, cury; (char coordinates)
+
+if (direction == r){
+   if(map[curx+1][cury].res == 0;){
+   space_swap();
+   } else if(<r value> > 0){
+   punch();
+   }
+  }
+
+
+
+
+void space_swap(struct space char, struct space dest){
+     struct space temp = char;
+     char = dest;
+     dest = temp;
+    }
+
+void punch(struct space char, struct space victim){
+     dest.res -= char.pwr;
+     (If we do pickups, test for dest.res == 0)
+}
