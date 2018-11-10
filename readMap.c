@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 struct space{
     int res;
@@ -18,6 +19,7 @@ int main(){
 
   // Reads in the map file line by line
   while(c != EOF){
+    printf("Current char: %c\n", c);
     while((c != '\n') && (c != EOF)){
       map[x][y] = (struct space){0, 0, c};
       // map[x][y].type = c;
@@ -32,30 +34,32 @@ int main(){
       } else if(map[x][y].type == '@'){
 	map[x][y].res = 0;
 	map[x][y].pwr = 10;
-      }
+	}
 
       x++;
-      if(c == '\n'){
+    }
+
+     if(c == '\n'){ // Skips to the next line in ze file (if there is one)
 	c = getchar();
       }
-    }
-    ++y;
+     
+    x = 0;
+    y++;
   }
 
   int i = 0;
   int j = 0;
   // Prints map (well... that's what we WANTED it to do)
-  while(i < 15){
-    while(j < 15){
+  while(i++ < 16){
+    while(j++ < 16){
       putchar(map[j][i].type);
-      j++;
     }
-    i++;
     j = 0;
     putchar('\n');
-  }  
+    } 
 }
 
+// We originally initialized the struct values in a separate function; we thought it may be where issues were coming from.
 /*void init_space(struct space map[][], int x, int y){  
   if(map[x][y].type == ' '){
     map[x][y].res = 0;
