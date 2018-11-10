@@ -19,8 +19,10 @@ int main(){
 
   // Reads in the map file line by line
   while(c != EOF){
-    printf("Current char: %c\n", c);
+    // printf("Current char: %c\n", c);
     while((c != '\n') && (c != EOF)){
+      // printf("Char isn't EOF or newline\n");
+      
       map[x][y] = (struct space){0, 0, c};
       // map[x][y].type = c;
 
@@ -29,6 +31,7 @@ int main(){
 	map[x][y].res = 0;
 	map[x][y].pwr = 0;
       } else if(map[x][y].type == '#'){
+	// printf("Well, we made it this far\n");
 	map[x][y].res = 250;
 	map[x][y].pwr = 0;
       } else if(map[x][y].type == '@'){
@@ -36,6 +39,7 @@ int main(){
 	map[x][y].pwr = 10;
 	}
 
+      c = getchar();
       x++;
     }
 
@@ -50,12 +54,14 @@ int main(){
   int i = 0;
   int j = 0;
   // Prints map (well... that's what we WANTED it to do)
-  while(i++ < 16){
-    while(j++ < 16){
+  while(i < 16){
+    while(j < 16){
       putchar(map[j][i].type);
+      j++;
     }
-    j = 0;
     putchar('\n');
+    i++;
+    j = 0;
     } 
 }
 
