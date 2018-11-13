@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <ctype.h>
 
+// TODO: Move the map reader into a function so it can be called externally. Only have the map printer in main() (for testing).
+
 struct space{
     int res;
     int pwr;
