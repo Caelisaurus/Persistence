@@ -1,82 +1,76 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
+#include "readMap.h"
 
-// TODO: Move the map reader into a function so it can be called externally. Only have the map printer in main() (for testing).
+// static struct space global_map[M_WIDTH][M_HEIGHT];
 
-struct space{
-    int res;
-    int pwr;
-    char type;
-  };
+int loadMap(struct space map[], char* path){
+        int x = 0;
+        int y = 0;
+        int c;
+        FILE *mapFile;
 
-static struct space map[16][16];
+        if((mapFile = fopen(path, "r")) == NULL) {
+                fprintf(stderr, "Error: Map file failed to load: %s", path);
+                return 1;
+        }
 
-// void init_space(struct space map[16][16], int x, int y);
+        // Reads in the map file line by line
+        while((c = fgetchar()) != EOF) {
+                if(c == '\n') { // Skips to the next line in ze file (if there is one)
+                        x = 0;
+                        y++;
+                        continue;
+                }
 
-int main(){
-  int x = 0;
-  int y = 0;
-  int c = getchar();
+                map[x][y] = (struct space){0, 0, c};
 
-  // Reads in the map file line by line
-  while(c != EOF){
-    // printf("Current char: %c\n", c);
-    while((c != '\n') && (c != EOF)){
-      // printf("Char isn't EOF or newline\n");
-      
-      map[x][y] = (struct space){0, 0, c};
-      // map[x][y].type = c;
+                // Sets struct values based on character read in
+                switch(c){
+                  // Air
+                  case ' ':
+                    map[x][y].res = AIR_RES;
+                    map[x][y].pwr = AIR_PWR;
+                    break;
+                  // Wall
+                  case '#':
+                    map[x][y].res = WALL_RES;
+                    map[x][y].pwr = WALL_PWR;
+                    break;
+                  // Player
+                  case '@':
+                    map[x][y].res = PLYR_PWR;
+                    map[x][y].pwr = PLYR_RES;
+                    break;
+                }
 
-      // Sets struct values based on character read in
-      if(map[x][y].type == ' '){
-	map[x][y].res = 0;
-	map[x][y].pwr = 0;
-      } else if(map[x][y].type == '#'){
-	// printf("Well, we made it this far\n");
-	map[x][y].res = 250;
-	map[x][y].pwr = 0;
-      } else if(map[x][y].type == '@'){
-	map[x][y].res = 0;
-	map[x][y].pwr = 10;
-	}
+                x++;
+        }
 
-      c = getchar();
-      x++;
-    }
-
-     if(c == '\n'){ // Skips to the next line in ze file (if there is one)
-	c = getchar();
-      }
-     
-    x = 0;
-    y++;
-  }
-
-  int i = 0;
-  int j = 0;
-  // Prints map (well... that's what we WANTED it to do)
-  while(i < 16){
-    while(j < 16){
-      putchar(map[j][i].type);
-      j++;
-    }
-    putchar('\n');
-    i++;
-    j = 0;
-    } 
+        return 0;
 }
 
-// We originally initialized the struct values in a separate function; we thought it may be where issues were coming from.
-/*void init_space(struct space map[][], int x, int y){  
-  if(map[x][y].type == ' '){
-    map[x][y].res = 0;
-    map[x][y].pwr = 0;
-  } else if(map[x][y].type == '#'){
-    map[x][y].res = 250;
-    map[x][y].pwr = 0;
-  } else if(map[x][y].type == '@'){
-    map[x][y].res = 0;
-    map[x][y].pwr = 10;
-  } 
-  }*/
+void printMap(struct space map[]){
+        int i = 0;
+        int j = 0;
+        // Prints map (well... that's what we WANTED it to do)
+        while(i < 16) {
+                while(j < 16) {
+                        putchar(map[j][i].type);
+                        j++;
+                }
+                putchar('\n');
+                i++;
+                j = 0;
+        }
+}
+
+int main() {
+  struct space map[M_WIDTH][M_HEIGHT];
+  char* test_map = "../maps/test_map";
+
+  if(loadMap(map, testMap) == 0){
+    printMap(map);
+  }
+  else {
+    exit(1);
+  }
+}
