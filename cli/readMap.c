@@ -30,7 +30,7 @@ int loadMap(space *map[M_WIDTH][M_HEIGHT], char* path){
         }
 
         // Reads in the map file line by line
-        while((c = fgetchar()) != EOF) {
+        while((c = fgetc(mapFile)) != EOF) {
                 if(c == '\n') { // Skips to the next line in ze file (if there is one)
                         x = 0;
                         y++;
