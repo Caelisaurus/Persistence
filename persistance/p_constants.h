@@ -30,15 +30,32 @@
  */
 
 // Air
-#define AIR_RES 0;
-#define AIR_PWR 0;
+#define AIR_RES 0
+#define AIR_PWR 0
+#define AIR_R 0
+#define AIR_G 0
+#define AIR_B 0
 
 // Wall
-#define WALL_RES 100;
-#define WALL_PWR 0;
+#define WALL_RES 100
+#define WALL_PWR 0
+#define WALL_R 255
+#define WALL_G 0
+#define WALL_B 255
 
 // Player
-#define PLYR_RES 0;
-#define PLYR_PWR 5;
+#define PLYR_RES 0
+#define PLYR_PWR 5
+#define PLYR_R 255
+#define PLYR_G 255
+#define PLYR_B 255
+
+/*
+ * ============
+ * Arduino Pins
+ * ============
+ */
+#define MATRIX_PIN 6
+#define SD_PIN 53
 
 #endif

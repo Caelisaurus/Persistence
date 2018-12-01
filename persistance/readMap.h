@@ -16,12 +16,11 @@
  * =====================================================================================
  */
 
-#ifndef readMap
-#define readMap
-#include <stdlib.h>
-#include <stdio.h>
-#include <ctype.h>
-#include "../p_constants.h"
+#ifndef readMap_h
+#define readMap_h
+#include <SPI.h>
+#include <SD.h>
+#include "p_constants.h"
 
  typedef struct space {
          int res;
@@ -29,7 +28,7 @@
          int type; // Actually a char
  } space;
 
-int loadMap(space *map[M_WIDTH][M_HEIGHT], char* fileName);
-void printMap(space *map[M_WIDTH][M_HEIGHT]);
+int loadMap(space *mapData[M_WIDTH][M_HEIGHT], char* fileName);
+void printMap(space *mapData[M_WIDTH][M_HEIGHT]);
 
 #endif

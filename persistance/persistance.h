@@ -11,5 +11,14 @@
  *
  * =====================================================================================
  */
+#ifndef persistance_h
+#define persistance_h
+
+#include "p_constants.h"
+#include "readMap.h"
+#include "pixelEngine.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <SD.h>
+
+#endif
