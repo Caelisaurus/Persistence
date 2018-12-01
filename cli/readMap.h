@@ -29,7 +29,7 @@
          char type;
  } space;
 
-int loadMap(space map[], char* fileName);
-void printMap(space map[]);
+int loadMap(space *map[M_WIDTH][M_HEIGHT], char* fileName);
+void printMap(space *map[M_WIDTH][M_HEIGHT]);
 
 #endif

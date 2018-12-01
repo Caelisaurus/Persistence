@@ -30,15 +30,15 @@
  */
 
 // Air
-#define AIR_RES = 0;
-#define AIR_PWR = 0;
+#define AIR_RES 0;
+#define AIR_PWR 0;
 
 // Wall
-#define WALL_RES = 100;
-#define WALL_PWR = 0;
+#define WALL_RES 100;
+#define WALL_PWR 0;
 
 // Player
-#define PLYR_RES = 0;
-#define PLYR_PWR = 5;
+#define PLYR_RES 0;
+#define PLYR_PWR 5;
 
 #endif
