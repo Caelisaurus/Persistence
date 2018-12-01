@@ -26,7 +26,7 @@
  typedef struct space {
          int res;
          int pwr;
-         char type;
+         int type; // Actually a char
  } space;
 
 int loadMap(space *map[M_WIDTH][M_HEIGHT], char* fileName);

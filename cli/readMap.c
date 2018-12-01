@@ -36,6 +36,8 @@ int loadMap(space *map[M_WIDTH][M_HEIGHT], char* path){
                         y++;
                         continue;
                 }
+		
+		map[x][y] = malloc(sizeof(space));
 
                 map[x][y]->type = c;
 
