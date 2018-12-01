@@ -16,16 +16,20 @@
  * =====================================================================================
  */
 
-#include <stdio.h>
+#ifndef readMap
+#define readMap
 #include <stdlib.h>
+#include <stdio.h>
 #include <ctype.h>
 #include "../p_constants.h"
 
- struct space {
+ typedef struct space {
          int res;
          int pwr;
          char type;
- };
+ } space;
 
-int loadMap(struct space map[], char* fileName);
-void printMap(struct space map[]);
+int loadMap(space map[], char* fileName);
+void printMap(space map[]);
+
+#endif

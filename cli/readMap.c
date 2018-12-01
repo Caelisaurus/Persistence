@@ -1,8 +1,12 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <ctype.h>
+#include "../p_constants.h"
 #include "readMap.h"
 
 // static struct space global_map[M_WIDTH][M_HEIGHT];
 
-int loadMap(struct space map[], char* path){
+int loadMap(space map[], char* path){
         int x = 0;
         int y = 0;
         int c;
@@ -21,25 +25,25 @@ int loadMap(struct space map[], char* path){
                         continue;
                 }
 
-                map[x][y] = (struct space){0, 0, c};
+                map[x][y] = (space){0, 0, c};
 
                 // Sets struct values based on character read in
-                switch(c){
-                  // Air
-                  case ' ':
-                    map[x][y].res = AIR_RES;
-                    map[x][y].pwr = AIR_PWR;
-                    break;
-                  // Wall
-                  case '#':
-                    map[x][y].res = WALL_RES;
-                    map[x][y].pwr = WALL_PWR;
-                    break;
-                  // Player
-                  case '@':
-                    map[x][y].res = PLYR_PWR;
-                    map[x][y].pwr = PLYR_RES;
-                    break;
+                switch(c) {
+                // Air
+                case ' ':
+                        map[x][y].res = AIR_RES;
+                        map[x][y].pwr = AIR_PWR;
+                        break;
+                // Wall
+                case '#':
+                        map[x][y].res = WALL_RES;
+                        map[x][y].pwr = WALL_PWR;
+                        break;
+                // Player
+                case '@':
+                        map[x][y].res = PLYR_PWR;
+                        map[x][y].pwr = PLYR_RES;
+                        break;
                 }
 
                 x++;
@@ -48,7 +52,7 @@ int loadMap(struct space map[], char* path){
         return 0;
 }
 
-void printMap(struct space map[]){
+void printMap(space map[]){
         int i = 0;
         int j = 0;
         // Prints map (well... that's what we WANTED it to do)
@@ -64,13 +68,13 @@ void printMap(struct space map[]){
 }
 
 int main() {
-  struct space map[M_WIDTH][M_HEIGHT];
-  char* test_map = "../maps/test_map";
+        space map[M_WIDTH][M_HEIGHT];
+        char* test_map = "../maps/test_map";
 
-  if(loadMap(map, testMap) == 0){
-    printMap(map);
-  }
-  else {
-    exit(1);
-  }
+        if(loadMap(map, testMap) == 0) {
+                printMap(map);
+        }
+        else {
+                exit(1);
+        }
 }

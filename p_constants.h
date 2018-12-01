@@ -12,6 +12,9 @@
  * =====================================================================================
  */
 
+ #ifndef p_constants
+ #define p_constants
+
 /*
  * ==============
  * Map constants
@@ -37,3 +40,5 @@
 // Player
 #define PLYR_RES = 0;
 #define PLYR_PWR = 5;
+
+#endif
