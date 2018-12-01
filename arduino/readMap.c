@@ -1,5 +1,7 @@
 #include "readMap.h"
 
+// static struct space global_map[M_WIDTH][M_HEIGHT];
+
 int main() {
         space *map[M_WIDTH][M_HEIGHT];
         char* test_map = "../maps/test_map";
