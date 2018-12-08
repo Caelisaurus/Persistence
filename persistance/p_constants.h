@@ -58,4 +58,8 @@
 #define MATRIX_PIN 6
 #define SD_PIN 53
 
+#define JOYSTICK_PIN_X 0
+#define JOYSTICK_PIN_Y 1
+#define JOYSTICK_PIN_BTN 8
+
 #endif

@@ -17,6 +17,7 @@
 #include "p_constants.h"
 #include "readMap.h"
 #include "pixelEngine.h"
+#include "player.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <SD.h>

@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  readMap.h
+ *       Filename:  player.h
  *
  *    Description:
  *
@@ -16,23 +16,11 @@
  * =====================================================================================
  */
 
-#ifndef readMap_h
-#define readMap_h
-#include <SPI.h>
-#include <SD.h>
+#ifndef player_h
+#define player_h
+#include "readMap.h"
 #include "p_constants.h"
 
-extern int player_x;
-extern int player_y;
-
-typedef struct space {
-        int res;
-        int pwr;
-        int type; // Actually a char
-} space;
-
-int loadMap(space *mapData[M_WIDTH][M_HEIGHT], char* fileName);
-int loadDefaultMap(space *mapData[M_WIDTH][M_HEIGHT]);
-void printMap(space *mapData[M_WIDTH][M_HEIGHT]);
+int movePlayer(space *mapData[M_WIDTH][M_HEIGHT], int mv_x, int mv_y);
 
 #endif

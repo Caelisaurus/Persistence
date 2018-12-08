@@ -36,8 +36,8 @@ int calcPixel(int x, int y) {
 }
 
 void printMap(Adafruit_NeoPixel pixels, space *mapData[M_WIDTH][M_HEIGHT]){
-        for(int x = 0; x < M_WIDTH; x++){
-                for(int y = 0; y < M_HEIGHT; y++){
+        for(int y = 0; y < M_HEIGHT; y++){
+                for(int x = 0; x < M_WIDTH; x++){
                         ledcolor color = getColor(mapData, x, y, 100);
                         pixels.setPixelColor(calcPixel(x, y), pixels.Color(color.r, color.g, color.b));
                         char printOut = mapData[x][y]->type;
