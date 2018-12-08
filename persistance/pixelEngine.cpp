@@ -36,11 +36,12 @@ int calcPixel(int x, int y) {
 }
 
 void printMap(Adafruit_NeoPixel pixels, space *mapData[M_WIDTH][M_HEIGHT]){
-        for(int x; x < M_WIDTH; x++){
-                for(int y; y < M_HEIGHT; y++){
+        for(int x = 0; x < M_WIDTH; x++){
+                for(int y = 0; y < M_HEIGHT; y++){
                         ledcolor color = getColor(mapData, x, y, 100);
                         pixels.setPixelColor(calcPixel(x, y), pixels.Color(color.r, color.g, color.b));
-                        Serial.print("#");
+                        char printOut = mapData[x][y]->type;
+                        Serial.print(printOut);
                 }
                 Serial.print("\n");
         }
