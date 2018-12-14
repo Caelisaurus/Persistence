@@ -36,6 +36,13 @@
 #define AIR_G 0
 #define AIR_B 0
 
+// Exit
+#define EXIT_RES 0
+#define EXIT_PWR 0
+#define EXIT_R 0
+#define EXIT_G 255
+#define EXIT_B 0
+
 // Wall
 #define WALL_RES 100
 #define WALL_PWR 0
