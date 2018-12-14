@@ -32,6 +32,8 @@ ledcolor getColor(space *mapData[M_WIDTH][M_HEIGHT], int x, int y, int intsy) {
                 // Player
                 case '@':
                         return getColorValue(PLYR_R, PLYR_G, PLYR_B, intsyCalc);
+                case '!':
+                        return getColorValue(EXIT_R, EXIT_G, EXIT_B, intsyCalc);
          }
 }
 
