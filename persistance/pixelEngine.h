@@ -13,6 +13,9 @@ typedef struct ledcolor {
         int b;
 } ledcolor;
 
+
+int interpolate(int startValue, int endValue, int stepNumber, int lastStepNumber);
+
 // Gets the value of a color calclulated from an intensity percentage value.
 ledcolor getColorValue(int r, int g, int b, float intsy);
 
