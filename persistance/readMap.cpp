@@ -63,6 +63,11 @@ int loadMap(space *mapData[M_WIDTH][M_HEIGHT], char* path){
                         player_x = x;
                         player_y = y;
                         break;
+		// Exit
+		case '!':
+                        mapData[x][y]->res = EXIT_RES;
+                        mapData[x][y]->pwr = EXIT_PWR;
+                        break;
                 default:
                         break;
                 }
