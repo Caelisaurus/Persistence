@@ -60,7 +60,7 @@ void loop() {
   int joy_btn = 0;
   int x = 0;
   int y = 0;
-  while(movePlayer(currentMap, x, y) == 0){
+  while(1){
             x=0;
             y=0;
             joy_x = analogRead(JOYSTICK_PIN_X);
@@ -73,6 +73,7 @@ void loop() {
               y = -1;
             if(joy_y > 800)
               y = 1;
+            movePlayer(currentMap, x, y);
             if(x != 0 || y != 0)
               printMap(pixels, currentMap);
             delay(100); // TODO: Dynamic movement speed

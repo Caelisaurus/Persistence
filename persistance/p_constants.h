@@ -42,6 +42,9 @@
 #define WALL_R 255
 #define WALL_G 0
 #define WALL_B 255
+#define WALL_R_DMG 255
+#define WALL_G_DMG 0
+#define WALL_B_DMG 0
 
 // Player
 #define PLYR_RES 0
