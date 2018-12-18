@@ -87,7 +87,15 @@ void loop() {
             if(joy_y > 800)
               y = 1;
             if(movePlayer(x, y) == 1){
-                break;
+                for(int y = 0; y < M_HEIGHT; y++){
+                        for(int x = 0; x < M_WIDTH; x++){
+                                pixels.setPixelColor(calcPixel(x, y), pixels.Color(10, 10, 10));
+                        }
+                }
+                pixels.begin();
+                pixels.show();
+                delay(1000);
+                asm volatile ("  jmp 0"); 
             }
             if(x != 0 || y != 0)
               printMap(pixels);
