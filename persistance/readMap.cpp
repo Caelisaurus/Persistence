@@ -66,7 +66,8 @@ int loadMap(char* path){
 }
 
 int loadDefaultMap(){
-        char* defaultMap = "################\n#              #\n#              #\n#              #\n#              #\n#              #\n#              #\n#              #\n#              #\n#              #\n#              #\n#              #\n#              #\n#              #\n#@             #\n################";
+        //char* defaultMap = "################\n#              #\n#              #\n#              #\n#              #\n#              #\n#              #\n#              #\n#              #\n#              #\n#              #\n#              #\n#              #\n#              #\n#@             #\n################";
+        char* defaultMap = "#  #  ##        \n## # #  #       \n# ## #  #       \n#  #  ##        \n                \n                \n ### ###        \n#    #  #       \n ##  #  #       \n   # #  #       \n###  ###        \n                \n                \n                \n                \n@               ";
         int x = 0;
         int y = 0;
         player_x = 0;
