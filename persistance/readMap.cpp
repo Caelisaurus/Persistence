@@ -2,36 +2,20 @@
 
 int player_x = 0;
 int player_y = 0;
+space *currentMap[M_WIDTH][M_HEIGHT];
 
-// static struct space global_map[M_WIDTH][M_HEIGHT];
-
-//int main() {
-//        space *mymap[M_WIDTH][M_HEIGHT];
-//        char* test_map = "../maps/test_map";
-//
-//        if(loadMap(mymap, test_map) == 0) {
-//                printMap(mymap);
-//        }
-//        else {
-//                exit(1);
-//        }
-//}
-
-int loadMap(space *mapData[M_WIDTH][M_HEIGHT], char* path){
+int loadMap(char* path){
         int x = 0;
         int y = 0;
         player_x = 0;
         player_y = 0;
         int c;
         File mapFile = SD.open(path);
-          
-          // This SD library is dumb and this wasn't working so now hopefully whoever is using this is using the right filenames
-//        if(mapFile = SD.open(path)) {
-//                Serial.println("Error: Map file failed to load");
-//                while(1);
-//        }
+
+        // This SD library is dumb and this wasn't working so now hopefully whoever is using this is using the right filenames
 
         // Reads in the map file line by line
+        mapFile.seek(0);
         while(mapFile.available()) {
                 c = mapFile.read();
                 if(c == '\n') { // Skips to the next line in ze file (if there is one)
@@ -39,47 +23,51 @@ int loadMap(space *mapData[M_WIDTH][M_HEIGHT], char* path){
                         y++;
                         continue;
                 }
-		
-		            mapData[x][y] = malloc(sizeof(space));
 
-                mapData[x][y]->type = c;
+                if(currentMap[x][y] == NULL)
+		              currentMap[x][y] = malloc(sizeof(space));
+
+                currentMap[x][y]->type = c;
 
                 // Sets struct values based on character read in
                 switch(c) {
                 // Air
                 case ' ':
-                        mapData[x][y]->res = AIR_RES;
-                        mapData[x][y]->pwr = AIR_PWR;
+                        currentMap[x][y]->res = AIR_RES;
+                        currentMap[x][y]->pwr = AIR_PWR;
                         break;
                 // Wall
                 case '#':
-                        mapData[x][y]->res = WALL_RES;
-                        mapData[x][y]->pwr = WALL_PWR;
+                        currentMap[x][y]->res = WALL_RES;
+                        currentMap[x][y]->pwr = WALL_PWR;
                         break;
                 // Player
                 case '@':
-                        mapData[x][y]->res = PLYR_PWR;
-                        mapData[x][y]->pwr = PLYR_RES;
+                        currentMap[x][y]->res = PLYR_PWR;
+                        currentMap[x][y]->pwr = PLYR_RES;
                         player_x = x;
                         player_y = y;
                         break;
-		// Exit
-		case '!':
-                        mapData[x][y]->res = EXIT_RES;
-                        mapData[x][y]->pwr = EXIT_PWR;
+        		// Exit
+        		case '!':
+                        currentMap[x][y]->res = EXIT_RES;
+                        currentMap[x][y]->pwr = EXIT_PWR;
                         break;
                 default:
+                        Serial.println("Warning: Unknown object in map");
                         break;
                 }
 
                 x++;
+                pos++;
         }
 
         mapFile.close();
+        Serial.println("!!!!! LOADED THE FILE !!!!!");
         return 0;
 }
 
-int loadDefaultMap(space *mapData[M_WIDTH][M_HEIGHT]){
+int loadDefaultMap(){
         char* defaultMap = "################\n#              #\n#              #\n#              #\n#              #\n#              #\n#              #\n#              #\n#              #\n#              #\n#              #\n#              #\n#              #\n#              #\n#@             #\n################";
         int x = 0;
         int y = 0;
@@ -96,27 +84,27 @@ int loadDefaultMap(space *mapData[M_WIDTH][M_HEIGHT]){
                         y++;
                         continue;
                 }
-    
-                mapData[x][y] = malloc(sizeof(space));
 
-                mapData[x][y]->type = c;
+                currentMap[x][y] = malloc(sizeof(space));
+
+                currentMap[x][y]->type = c;
 
                 // Sets struct values based on character read in
                 switch(c) {
                 // Air
                 case ' ':
-                        mapData[x][y]->res = AIR_RES;
-                        mapData[x][y]->pwr = AIR_PWR;
+                        currentMap[x][y]->res = AIR_RES;
+                        currentMap[x][y]->pwr = AIR_PWR;
                         break;
                 // Wall
                 case '#':
-                        mapData[x][y]->res = WALL_RES;
-                        mapData[x][y]->pwr = WALL_PWR;
+                        currentMap[x][y]->res = WALL_RES;
+                        currentMap[x][y]->pwr = WALL_PWR;
                         break;
                 // Player
                 case '@':
-                        mapData[x][y]->res = PLYR_PWR;
-                        mapData[x][y]->pwr = PLYR_RES;
+                        currentMap[x][y]->res = PLYR_PWR;
+                        currentMap[x][y]->pwr = PLYR_RES;
                         player_x = x;
                         player_y = y;
                         break;
@@ -127,4 +115,48 @@ int loadDefaultMap(space *mapData[M_WIDTH][M_HEIGHT]){
                 x++;
         }
         return 0;
+}
+
+void printDirectory(File dir, int numTabs) {
+  while (true) {
+
+    File entry =  dir.openNextFile();
+    if (! entry) {
+      // no more files
+      break;
+    }
+    for (uint8_t i = 0; i < numTabs; i++) {
+      Serial.print('\t');
+    }
+    Serial.print(entry.name());
+    if (entry.isDirectory()) {
+      Serial.println("/");
+      printDirectory(entry, numTabs + 1);
+    } else {
+      // files have sizes, directories do not
+      Serial.print("\t\t");
+      Serial.println(entry.size(), DEC);
+    }
+    entry.close();
+  }
+}
+
+linkedlist* loadMapList(linkedlist* list, char* path) {
+  File dir = SD.open(path);
+  char* name;
+
+  while (true) {
+
+    File entry =  dir.openNextFile();
+    if (! entry) {
+      // no more files
+      break;
+    }
+    if (!entry.isDirectory()) {
+      insertTail(list, entry.name());
+    }
+    entry.close();
+  }
+  dir.close();
+  return list;
 }

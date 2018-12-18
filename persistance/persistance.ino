@@ -15,7 +15,9 @@
 
 Adafruit_NeoPixel pixels = Adafruit_NeoPixel(M_WIDTH * M_HEIGHT, MATRIX_PIN, NEO_GRB + NEO_KHZ800);
 
-space *currentMap[M_WIDTH][M_HEIGHT]; // Currently loaded map
+node* currentMapNode;
+
+linkedlist *mapList;
 
 void setup() {
   // Initialize LED Matrix
@@ -37,20 +39,22 @@ void setup() {
 
   if (!SD.begin(SD_PIN)) {
     Serial.println("initialization failed!\nloading default map");
-    loadDefaultMap(currentMap);
-    printMap(pixels, currentMap);
+    loadDefaultMap();
+    printMap(pixels);
   }
   else {
     Serial.println("initialization done.");
-  
-    char* test_file = "test_map";
-  
-    if(loadMap(currentMap, test_file) == 0) {
-            printMap(pixels, currentMap);
-    }
-    else {
-            exit(1);
-    }
+    Serial.println("Loading maps...");
+
+    mapList = newLinkedlist();
+
+    mapList = loadMapList(mapList, MAP_DIR);
+
+    Serial.println("Maps loaded:");
+    File root = SD.open(MAP_DIR);
+    printDirectory(root, 0);
+
+    currentMapNode = mapList->head;
   }
 }
 
@@ -60,6 +64,15 @@ void loop() {
   int joy_btn = 0;
   int x = 0;
   int y = 0;
+  Serial.print("Loading map ");
+  currentMapNode = currentMapNode->next;
+  Serial.println(currentMapNode->path);
+  if(loadMap(strcat(MAP_DIR, currentMapNode->path)) == 0) {
+          Serial.println("Loaded...");
+          delay(1000);
+          Serial.println("Started...");
+          printMap(pixels);
+  }
   while(1){
             x=0;
             y=0;
@@ -73,9 +86,11 @@ void loop() {
               y = -1;
             if(joy_y > 800)
               y = 1;
-            movePlayer(currentMap, x, y);
+            if(movePlayer(x, y) == 1){
+                break;
+            }
             if(x != 0 || y != 0)
-              printMap(pixels, currentMap);
+              printMap(pixels);
             delay(100); // TODO: Dynamic movement speed
 
   }

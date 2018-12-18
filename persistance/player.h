@@ -21,6 +21,6 @@
 #include "readMap.h"
 #include "p_constants.h"
 
-int movePlayer(space *mapData[M_WIDTH][M_HEIGHT], int mv_x, int mv_y);
+int movePlayer(int mv_x, int mv_y);
 
 #endif

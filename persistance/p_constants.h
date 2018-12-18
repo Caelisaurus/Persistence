@@ -22,6 +22,7 @@
  */
 #define M_WIDTH 16
 #define M_HEIGHT 16
+#define MAP_DIR "/maps/" // Must include trailing /
 
 /*
  * =================
