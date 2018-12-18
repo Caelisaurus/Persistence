@@ -59,11 +59,9 @@ int loadMap(char* path){
                 }
 
                 x++;
-                pos++;
         }
 
         mapFile.close();
-        Serial.println("!!!!! LOADED THE FILE !!!!!");
         return 0;
 }
 
